@@ -1,5 +1,5 @@
-import { useState, useEffect } from "react"
-import useDarkMode from "use-dark-mode"
+import { useState, useEffect } from "react";
+import { useDarkMode } from "usehooks-ts";
 import Head from "next/head";
 import { ThemeProvider } from "styled-components";
 import Layout from "../components/Layout";
@@ -13,21 +13,20 @@ import SEO from '../next-seo.config';
 import "@appwrite.io/pink-icons";
 
 function MyApp({ Component, pageProps }) {
-    const [isMounted, setIsMounted] = useState(false)
-    const darkMode = useDarkMode(false)
+    const [isMounted, setIsMounted] = useState(false);
+    const { isDarkMode } = useDarkMode();
 
-    // const [theme, setTheme] = useState(lightTheme)
-    const theme = darkMode.value ? darkTheme : lightTheme;
+    const theme = isDarkMode ? darkTheme : lightTheme;
 
     useEffect(() => {
         setIsMounted(true);
         // Add dark theme class when dark mode is enabled
-        if (darkMode.value) {
+        if (isDarkMode) {
             document.documentElement.classList.add('theme-dark');
         } else {
             document.documentElement.classList.remove('theme-dark');
         }
-    }, [darkMode.value])
+    }, [isDarkMode]);
 
     if (!isMounted) return null;
 
@@ -38,38 +37,40 @@ function MyApp({ Component, pageProps }) {
                 <Head>
                     <meta content="width=device-width, initial-scale=1" name="viewport" />
                     <link rel="icon" href="/favicon.ico" />
-
                 </Head>
                 <GlobalStyle />
                 <Layout>
                     <DefaultSeo
                         canonical={SEO.openGraph.url}
                         {...SEO}
-                        additionalMetaTags={[{
-                            name: 'keywords',
-                            content: SEO.openGraph.keywords,
-                        },
-                        {
-                            name: 'twitter:image',
-                            content: SEO.openGraph.images[0].url
-                        },
-                        {
-                            name: 'twitter:title',
-                            content: SEO.openGraph.title,
-                        },
-                        {
-                            name: 'twitter:description',
-                            content: SEO.openGraph.description,
-                        },
-                        {
-                            httpEquiv: 'x-ua-compatible',
-                            content: 'IE=edge; chrome=1'
-                        }]}
+                        additionalMetaTags={[
+                            {
+                                name: 'keywords',
+                                content: SEO.openGraph.keywords,
+                            },
+                            {
+                                name: 'twitter:image',
+                                content: SEO.openGraph.images[0].url
+                            },
+                            {
+                                name: 'twitter:title',
+                                content: SEO.openGraph.title,
+                            },
+                            {
+                                name: 'twitter:description',
+                                content: SEO.openGraph.description,
+                            },
+                            {
+                                httpEquiv: 'x-ua-compatible',
+                                content: 'IE=edge; chrome=1'
+                            }
+                        ]}
                     />
                     <Component {...pageProps} />
                 </Layout>
             </ThemeProvider>
         </>
-    )
+    );
 }
-export default MyApp
+
+export default MyApp;
