@@ -10,7 +10,7 @@ import { ChevronRightIcon, HexIcon, HomeIcon, TwitterIcon, OvalIcon } from './ic
 import allLinks from "../data/LinksData";
 import bioData from "../data/BioData";
 import { useState, useEffect } from 'react';
-import useDarkMode from 'use-dark-mode';
+import { useDarkMode } from "usehooks-ts";
 
 
 
