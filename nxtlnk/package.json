@@ -12,6 +12,8 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@appwrite.io/pink": "^1.0.0",
+    "@appwrite.io/pink-icons": "^1.0.0",
     "@react-three/fiber": "^8.2.1",
     "next": "^12.2.4",
     "next-seo": "^5.5.0",
